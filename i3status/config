@@ -16,18 +16,18 @@ general {
 
 # order += "ipv6"
 order += "volume master"
-# order += "wireless _first_"
-order += "ethernet _first_"
-# order += "battery all"
+order += "wireless _first_"
+# order += "ethernet _first_"
+order += "battery all"
 # order += "disk /"
 # order += "load"
 order += "memory"
 order += "tztime local"
 
-# wireless _first_ {
-#         format_up = "(%quality at %essid)"
-#         format_down = "down"
-# }
+wireless _first_ {
+        format_up = "(%quality at %essid)"
+        format_down = "down"
+}
 
 wireless _first_ {
         format_up = "  %essid  "
@@ -42,14 +42,14 @@ volume master {
         mixer_idx = 0
 }
 
-ethernet _first_ {
-        format_up = "Ethernet Connected (%speed)"
-        format_down = "Ethernet Disconnected"
-}
-
-# battery all {
-#         format = "%status %percentage"
+# ethernet _first_ {
+#         format_up = "Ethernet Connected (%speed)"
+#         format_down = "Ethernet Disconnected"
 # }
+
+battery all {
+        format = "%status %percentage"
+}
 
 
 disk "/" {
