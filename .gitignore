@@ -1,4 +1,5 @@
 Android Open Source Project
+Code
 FreeTube
 Google
 Proton Mail
@@ -19,6 +20,9 @@ enchant
 evolution
 fontconfig
 fontforge
+fastfetch
+gedit
+gnome-control-center
 gh
 gitui
 glib-2.0
@@ -60,4 +64,5 @@ user-dirs.dirs
 user-dirs.locale
 xdg-terminals.list
 gnome-xdg-terminals.list
+gnome-initial-setup-done
 .gsd-keyboard.settings-ported
