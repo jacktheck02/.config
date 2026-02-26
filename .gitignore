@@ -55,6 +55,7 @@ xfce4
 xpad
 yelp
 zed
+.wrangler
 QtProject.conf
 gnome-xdg=terminals.list
 mimeapps.list
