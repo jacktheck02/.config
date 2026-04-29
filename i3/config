@@ -226,4 +226,4 @@ bar {
 bindsym $mod+l exec /home/$USER/.config/scripts/lock
 
 exec xset r rate 300 50 &
-exec_always feh --bg-fill /home/jacktheck02/.local/share/backgrounds/wave-Dark-nord.jpg
+exec_always feh --bg-fill /home/jack/.local/share/backgrounds/wave-Dark-nord.jpg
