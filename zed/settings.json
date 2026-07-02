@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "gutter": {
+    "min_line_number_digits": 4
+  },
   "tab_size": 4,
   "show_edit_predictions": false,
   "cli_default_open_behavior": "existing_window",
@@ -94,6 +97,11 @@
         {
           "paths": [
             "/home/jacktheck02/misick-client"
+          ]
+        },
+        {
+          "paths": [
+            "/home/jacktheck02/papermc"
           ]
         }
       ]
