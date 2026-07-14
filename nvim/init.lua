@@ -13,7 +13,7 @@ do
   vim.g.maplocalleader = ' '
 
   -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = true
+  vim.g.have_nerd_font = false
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
@@ -85,6 +85,11 @@ do
   -- instead raise a dialog asking if you wish to save the current file(s)
   -- See `:help 'confirm'`
   vim.o.confirm = true
+
+  -- Remove providers in checkhealth
+  vim.g.loaded_python3_provider = 0
+  vim.g.loaded_perl_provider = 0
+  vim.g.loaded_ruby_provider = 0
 end
 
 -- ============================================================
@@ -297,7 +302,7 @@ do
         else
           gitsigns.nav_hunk 'next'
         end
-      end)
+      end, { desc = 'next hunk' })
 
       map('n', '[c', function()
         if vim.wo.diff then
@@ -305,7 +310,7 @@ do
         else
           gitsigns.nav_hunk 'prev'
         end
-      end)
+      end, { desc = 'previous hunk' })
 
       -- Actions
       map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Stage hunk at cursor' })
@@ -756,6 +761,7 @@ do
         lua = true,
         python = true,
         go = true,
+        java = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
