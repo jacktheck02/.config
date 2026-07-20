@@ -86,3 +86,5 @@ xmonad/xmonad-contrib
 xmonad/stack.yaml
 xmonad/stack.yaml.lock
 sealert.conf
+colima
+labwc
