@@ -959,3 +959,11 @@ end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+do
+  vim.pack.add {
+    gh 'MeanderingProgrammer/render-markdown.nvim',
+  }
+
+  require('render-markdown').setup {}
+end
