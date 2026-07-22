@@ -51,6 +51,11 @@ bindsym $mod+d exec --no-startup-id dmenu_run -i -nb '#1f222d' -nf '#81a1c1' -sb
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
+# Screenshot bindings
+bindsym Print exec --no-startup-id maim ~/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym $mod+p exec --no-startup-id maim -s ~/Pictures/screenshot_$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym $mod+Shift+p exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -106,7 +111,7 @@ bindsym $mod+a focus parent
 set $ws1  "1: "
 set $ws2  "2: 󰠮"
 set $ws3  "3: "
-set $ws4  "4: 󰍹"
+set $ws4  "4: "
 set $ws5  "5: 󰍹"
 set $ws6  "6: "
 set $ws7  "7: "
@@ -141,6 +146,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 assign [class="firefox"] $ws1
 assign [class="obsidian"] $ws2
 assign [class="gnome-calendar"] $ws3
+assign [class="steam"] $ws4
 assign [class="google-chrome"] $ws10
 
 # reload the configuration file
