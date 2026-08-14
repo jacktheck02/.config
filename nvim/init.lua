@@ -431,17 +431,63 @@ do
 
   -- See `:help telescope.builtin`
   local builtin = require 'telescope.builtin'
-  vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
+  local actions = require 'telescope.actions'
+
+  -- Opens find_files where <CR> uses the given "open target" action
+  local function go_to_file(builtin_function, select_action)
+    return function()
+      builtin[builtin_function] {
+        attach_mappings = function(prompt_bufnr, _)
+          if actions[select_action] ~= actions.select_default then actions.select_default:replace(function() actions[select_action](prompt_bufnr) end) end
+
+          return true
+        end,
+      }
+    end
+  end
+
   vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-  vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
   vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-  vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-  vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-  vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-  vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-  vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
   vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
-  vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+  vim.keymap.set('n', '<leader>sht', go_to_file('help_tags', 'select_tab'), { desc = '[S]earch [H]elp in new [T]ab' })
+  vim.keymap.set('n', '<leader>shv', go_to_file('help_tags', 'select_vertical'), { desc = '[S]earch [H]elp in [V]ertical split' })
+  vim.keymap.set('n', '<leader>shx', go_to_file('help_tags', 'select_horizontal'), { desc = '[S]earch [H]elp in [X] split' })
+
+  vim.keymap.set('n', '<leader>sfd', go_to_file('find_files', 'select_drop'), { desc = '[S]earch [F]iles [D]ropped in window' })
+  vim.keymap.set('n', '<leader>sft', go_to_file('find_files', 'select_tab'), { desc = '[S]earch [F]iles in new [T]ab' })
+  vim.keymap.set('n', '<leader>sfv', go_to_file('find_files', 'select_vertical'), { desc = '[S]earch [F]iles in [V]ertical split' })
+  vim.keymap.set('n', '<leader>sfx', go_to_file('find_files', 'select_horizontal'), { desc = '[S]earch [F]iles in [X] split' })
+
+  vim.keymap.set('n', '<leader>swd', go_to_file('grep_string', 'select_drop'), { desc = '[S]earch current [W]ord [D]ropped in window' })
+  vim.keymap.set('n', '<leader>swt', go_to_file('grep_string', 'select_tab'), { desc = '[S]earch current [W]ord in new [T]ab' })
+  vim.keymap.set('n', '<leader>swv', go_to_file('grep_string', 'select_vertical'), { desc = '[S]earch current [W]ord in [V]ertical split' })
+  vim.keymap.set('n', '<leader>swx', go_to_file('grep_string', 'select_horizontal'), { desc = '[S]earch current [W]ord in [X] split' })
+
+  vim.keymap.set('n', '<leader>sgd', go_to_file('live_grep', 'select_drop'), { desc = '[S]earch by [G]rep [D]ropped in window' })
+  vim.keymap.set('n', '<leader>sgt', go_to_file('live_grep', 'select_tab'), { desc = '[S]earch by [G]rep in new [T]ab' })
+  vim.keymap.set('n', '<leader>sgv', go_to_file('live_grep', 'select_vertical'), { desc = '[S]earch by [G]rep in [V]ertical split' })
+  vim.keymap.set('n', '<leader>sgx', go_to_file('live_grep', 'select_horizontal'), { desc = '[S]earch by [G]rep in [X] split' })
+
+  vim.keymap.set('n', '<leader>sdd', go_to_file('diagnostics', 'select_drop'), { desc = '[S]earch [D]iagnostics [D]ropped in window' })
+  vim.keymap.set('n', '<leader>sdt', go_to_file('diagnostics', 'select_tab'), { desc = '[S]earch [D]iagnostics in new [T]ab' })
+  vim.keymap.set('n', '<leader>sdv', go_to_file('diagnostics', 'select_vertical'), { desc = '[S]earch [D]iagnostics in [V]ertical split' })
+  vim.keymap.set('n', '<leader>sdx', go_to_file('diagnostics', 'select_horizontal'), { desc = '[S]earch [D]iagnostics in [X] split' })
+
+  vim.keymap.set('n', '<leader>srd', go_to_file('resume', 'select_drop'), { desc = '[S]earch [R]esume [D]ropped in window' })
+  vim.keymap.set('n', '<leader>srt', go_to_file('resume', 'select_tab'), { desc = '[S]earch [R]esume in new [T]ab' })
+  vim.keymap.set('n', '<leader>srv', go_to_file('resume', 'select_vertical'), { desc = '[S]earch [R]esume in [V]ertical split' })
+  vim.keymap.set('n', '<leader>srx', go_to_file('resume', 'select_horizontal'), { desc = '[S]earch [R]esume in [X] split' })
+
+  vim.keymap.set('n', '<leader>s.d', go_to_file('oldfiles', 'select_drop'), { desc = '[S]earch Recent Files [D]ropped in window' })
+  vim.keymap.set('n', '<leader>s.t', go_to_file('oldfiles', 'select_tab'), { desc = '[S]earch Recent Files in new [T]ab' })
+  vim.keymap.set('n', '<leader>s.v', go_to_file('oldfiles', 'select_vertical'), { desc = '[S]earch Recent Files in [V]ertical split' })
+  vim.keymap.set('n', '<leader>s.x', go_to_file('oldfiles', 'select_horizontal'), { desc = '[S]earch Recent Files in [X] split' })
+
+  vim.keymap.set('n', '<leader><leader>d', go_to_file('buffers', 'select_drop'), { desc = '[ ] Find existing buffers [D]ropped in window' })
+  vim.keymap.set('n', '<leader><leader>t', go_to_file('buffers', 'select_tab'), { desc = '[ ] Find existing buffers in new [T]ab' })
+  vim.keymap.set('n', '<leader><leader>v', go_to_file('buffers', 'select_vertical'), { desc = '[ ] Find existing buffers in [V]ertical split' })
+  vim.keymap.set('n', '<leader><leader>x', go_to_file('buffers', 'select_horizontal'), { desc = '[ ] Find existing buffers in [X] split' })
 
   -- Add Telescope-based LSP pickers when an LSP attaches to a buffer.
   -- If you later switch picker plugins, this is where to update these mappings.
@@ -709,6 +755,7 @@ do
         python = true,
         go = true,
         java = true,
+        typescript = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
